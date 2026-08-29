@@ -154,10 +154,14 @@ async function runAlgorithm(endpoint) {
 
   if (!visited.length) {
     alert('No path found.');
+    fetchHistory();
     return;
   }
 
-  animateVisited(visited, () => animatePath(path));
+  animateVisited(visited, () => {
+      animatePath(path);
+      fetchHistory();
+  });
 }
 
 function animateVisited(visited, onComplete) {
@@ -239,4 +243,32 @@ function generateRandomMaze() {
 document.addEventListener('DOMContentLoaded', () => {
   createGrid();
   drawGrid();
+  fetchHistory();
 });
+
+async function fetchHistory() {
+  try {
+    const res = await fetch('/history');
+    if (!res.ok) return;
+    const runs = await res.json();
+    
+    const tbody = document.querySelector('#historyTable tbody');
+    tbody.innerHTML = '';
+    
+    runs.forEach(run => {
+      const row = document.createElement('tr');
+      row.style.borderBottom = '1px solid #eee';
+      row.innerHTML = `
+        <td style="padding: 8px;">${run.id}</td>
+        <td style="padding: 8px;">${run.algorithm}</td>
+        <td style="padding: 8px;">${run.nodes_visited}</td>
+        <td style="padding: 8px;">${run.path_length}</td>
+        <td style="padding: 8px;">${run.duration_ms.toFixed(2)}</td>
+        <td style="padding: 8px;">${new Date(run.created_at).toLocaleString()}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  } catch (err) {
+    console.error("Failed to fetch history:", err);
+  }
+}

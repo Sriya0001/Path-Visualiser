@@ -1,0 +1,20 @@
+[Unit]
+Description=Gunicorn instance to serve Pathfinding Visualizer
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/path-visualizer
+Environment="PATH=/home/ubuntu/path-visualizer/venv/bin"
+Environment="FLASK_DEBUG=False"
+Environment="DB_HOST=YOUR_RDS_ENDPOINT_HERE"
+Environment="DB_PORT=3306"
+Environment="DB_NAME=pathfinder"
+Environment="DB_USER=app"
+Environment="DB_PASSWORD=YOUR_DB_PASSWORD_HERE"
+
+ExecStart=/home/ubuntu/path-visualizer/venv/bin/gunicorn --workers 4 --bind unix:pathfinder.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target

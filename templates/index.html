@@ -46,6 +46,26 @@
     </ul>
   </div>
 
+  <div class="history-panel" style="margin: 20px; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <h3>Recent Runs</h3>
+    <button onclick="fetchHistory()" style="margin-bottom: 10px;">Refresh History</button>
+    <table id="historyTable" style="width: 100%; border-collapse: collapse; text-align: left;">
+      <thead>
+        <tr style="border-bottom: 2px solid #eee;">
+          <th>ID</th>
+          <th>Algorithm</th>
+          <th>Nodes Visited</th>
+          <th>Path Length</th>
+          <th>Duration (ms)</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Populated via JS -->
+      </tbody>
+    </table>
+  </div>
+
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

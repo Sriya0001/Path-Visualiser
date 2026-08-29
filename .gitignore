@@ -9,3 +9,13 @@ __pycache__/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+*.log
+
+# IDEs
+.idea/
