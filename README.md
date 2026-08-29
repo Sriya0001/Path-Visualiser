@@ -6,13 +6,6 @@ A dynamic web application to visualize and understand popular pathfinding algori
 
 This project is built to run both locally using Docker for the database, and in the cloud on AWS.
 
-### Local Development Architecture
-
-```mermaid
-graph TD
-    Client[Browser (HTML/Canvas)] -->|HTTP POST/GET| Flask[Flask App (Port 5000/8000)]
-    Flask -->|SQLAlchemy| MySQL[(Local MySQL Docker Container Port 3307)]
-```
 
 ### Target AWS Architecture
 
